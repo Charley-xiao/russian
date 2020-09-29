@@ -23,6 +23,8 @@
             align-items: center;
             flex-direction:row;
             -webkit-perspective:300;
+            -webkit-transition-duration: 0.7s;
+            transition-duration: 0.7s;
         }
         .chars{ 
             color: black;
@@ -354,6 +356,10 @@
                        0 0 20px #4169E1, 
                        0 0 40px #4169E1;
         }
+        #body{
+            -webkit-transition-duration: 0.7s;
+            transition-duration: 0.7s;
+        }
     </style>
     <script>
         var state_of_music=1;
@@ -367,6 +373,14 @@
         var cor=0;
         var getwa=[];
         var record="";
+        function playsoundac(){
+            var aud= new Audio("http://downsc.chinaz.net/Files/DownLoad/sound1/202009/13386.mp3");
+            aud.play();
+        }
+        function playsoundwa(){
+            var aud= new Audio("http://img.51miz.com/preview/sound/00/27/08/51miz-S270861-E115EEF5.mp3");
+            aud.play();
+        }
         function change(){
             var sleep=function(time){
             var startTime=new Date().getTime()+parseInt(time,10);
@@ -473,8 +487,10 @@
         function ShowCorrect(){
             // document.getElementById("mainmem").style.display="none";
             // document.getElementById("correctpart").style.display="";
+            if(state_of_music==1) playsoundac();
             window.alert("Good Job!");
             cor+=1;
+            
             // var sleep=function(time){
    //       var startTime=new Date().getTime()+parseInt(time,10);
    //           while(new Date().getTime()<startTime){}
@@ -490,11 +506,13 @@
             document.getElementById("finalshow").innerHTML="你答对了"+cor+"/"+goal+"题！"
         }
         function ShowWrong(){
+            if(state_of_music==1) playsoundwa();
             window.alert("Oops!\n"+chineselist[signal]+" : "+russianlist[signal]);
             getwa.push(chineselist[signal]+" : "+russianlist[signal]);
             var user=getCookie("username");
             user=user+","+signal;
             setCookie("username", user, 1000);
+            
             start1();
         }
         function checkanswer(statement){
