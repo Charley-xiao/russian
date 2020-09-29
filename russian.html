@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -268,7 +267,7 @@
             justify-content: center;
             height: 20vh;
         }
-        button {
+        /*button {
              border: 0;
             background: none;
              text-transform: uppercase;
@@ -309,6 +308,25 @@
              border-bottom-color: #4361ee;
              border-left-color: #4361ee;
              transition: border-color 0s ease-out 0.6s, width 0.3s ease-out 0.6s, height 0.3s ease-out 1s;
+        }*/
+        button{
+            background-color: white; 
+            border: 2px solid #008CBA;
+            color: black;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            -webkit-transition-duration: 0.4s; 
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #008CBA;
+            color: white;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
         }
         h1{
           color: /*#484848*/#9370DB;
@@ -338,6 +356,7 @@
         }
     </style>
     <script>
+        var state_of_music=1;
         var signal=-1;
         var goal=10;
         var cur=0;
@@ -592,6 +611,7 @@
         function start_output_statement(){
             if(lstofwas.length<where_in_lstofwas) show_review_final();
             document.getElementById("contained_question").innerHTML=russianlist[lstofwas[where_in_lstofwas]];
+            if(russianlist[lstofwas[where_in_lstofwas]]==undefined) show_review_final();
             document.getElementById("contained_ans1").innerHTML=chineselist[getrand(sze)-1];
             document.getElementById("contained_ans2").innerHTML=chineselist[getrand(sze)-1];
             document.getElementById("contained_ans3").innerHTML=chineselist[getrand(sze)-1];
@@ -621,6 +641,19 @@
         function gotomainsite(){
             top.location="https://charley-xiao.github.io";
         }
+        function settingsshow(){
+            document.getElementById("clk").style.display="none";
+            document.getElementById("settings").style.display="";
+        }
+        function muzyku(obj){
+            state_of_music=state_of_music^1;
+            if(state_of_music==1) obj.innerHTML="音效：开";
+            else obj.innerHTML="音效：关";
+        }
+        function gotoclk(){
+            document.getElementById("clk").style.display="";
+            document.getElementById("settings").style.display="none";
+        }
     </script>
 </head>
 <body>
@@ -641,15 +674,15 @@
         <div class="ll X"></div>
         <div class="pcov"></div>
     </div>
-    <div>
-        <div id="clk" onclick="change()">
+    <div id="clk">
+        <div onclick="change()">
             <div id="draw-border">
-                <button>点击进入</button><br/><br/>
-                <button onclick="loadprocess()">载入学习进度</button><br/><br/>
-                <button onclick="initprocess()">重置学习进度</button><br/><br/>
-                <button onclick="gotomainsite()">前往主站</button>
+                <button>点击进入</button><br/>
+                <button onclick="loadprocess()">载入学习进度</button><br/>
+                <button onclick="initprocess()">重置学习进度</button><br/>
             </div>
         </div>
+        <center><button onclick="gotomainsite()">前往主站</button><button onclick="settingsshow()">设置</button></center>
     </div>
     <h1><center><span>РУССКИЙ</span>&nbsp;<span>ЯЗЫК</span></center></h1>
     <div id="page-aft" style="display: none;">
@@ -713,14 +746,17 @@
         </div>
     </div>
     <div id="review_final" style="display: none;">
-        1234
+        <center><p style="color: #4361ee;font-size: 30px;">恭喜！您复习了所有错误单词！</p></center><br/>
+        <center><p style="color: #4361ee;font-size: 30px;">提示：可以重置学习进度</p></center><br/>
+    </div>
+    <div id="settings" style="display: none;position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);">
+        <button onclick="muzyku(this)">音效：开</button><br/>
+        <button onclick="gotoclk()">往主页面</button>
     </div>
     <div id="retry">
         <br/>
-        <center><img src="restart.jpg" onclick="refresh_page()" style="width: 30px;height: 30px;" /></center><br/>
-    </div>
-    <div>
-        版本号：202009221541
+        <center><img src="restart.jpg" onclick="refresh_page()" style="position: absolute;top: 2%;left: 2%;width: 30px;height: 30px;" /></center><br/>
+        <p style="position: absolute;top: 7%;left: 2%;">版本号：202009291640</p>
     </div>
 </body>
 </html>
